@@ -7,11 +7,15 @@ const { requestLogger, errorLogger } = require('../middlewares/logger');
 
 const errorHandler = require('../middlewares/errorHandler');
 const auth = require('../middlewares/auth');
+const cors = require('../middlewares/cors');
 
 const router = express.Router();
 
 // логгер запросов
 router.use(requestLogger);
+
+// cors
+router.use(cors);
 
 // роуты, не требующие авторизации
 router.use('/signin', require('./signin'));
