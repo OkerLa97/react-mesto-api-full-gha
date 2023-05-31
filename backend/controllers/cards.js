@@ -14,7 +14,11 @@ module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user._id })
     .then((card) => {
-      res.status(201).send({ data: card });
+      // Используем метод .populate() для загрузки данных по полям "owner" и "likes"
+      return card.populate(['owner', 'likes']).execPopulate();
+    })
+    .then((populatedCard) => {
+      res.status(201).send({ data: populatedCard });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
