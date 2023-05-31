@@ -50,14 +50,14 @@ class Api {
   }
 
   addLike(cardId) {
-    return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: this._headers
     });
   }
 
   deleteLike(cardId) {
-    return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: this._headers
     });
@@ -127,10 +127,15 @@ class Api {
   }
 }
 
+const defaultHeaders = {
+  'Content-Type': 'application/json'
+};
+
+const jwt = localStorage.getItem("jwt");
+if(jwt) defaultHeaders["Authorization"] = `Bearer ${jwt}`;
+
 export const api = new Api({
   baseUrl: 'http://oker97.nomoredomains.rocks',
   authUrl: 'http://oker97.nomoredomains.rocks',
-  headers: {
-    'Content-Type': 'application/json'
-  }
+  headers: defaultHeaders
 });

@@ -72,7 +72,10 @@ class App extends React.Component {
 
   startApp(){
     Promise.all([api.getUserInfo(), api.getInitialCards()])
-    .then(([userData, cardsData]) => {
+    .then(([userDataResponse, cardsDataResponse]) => {
+      const userData = userDataResponse.data;
+      const cardsData = cardsDataResponse.data;
+      console.log(cardsData);
       this.setState({
         currentUser: {
           userName: userData.name,
@@ -171,8 +174,10 @@ class App extends React.Component {
     const isLiked = card.likes.some(i => i._id === this.state.currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCardRespose) => {
       // Обновляем стейт
+      const newCard = newCardRespose.data;
+      console.log(newCard);
       this.setState(state => ({
         cards: state.cards.map((c) => c._id === card._id ? newCard : c),
       }));
@@ -183,7 +188,7 @@ class App extends React.Component {
   }
 
   handleCardDelete(card){
-    api.deleteCard(card._id).then((newCard) => {
+    api.deleteCard(card._id).then((newCardResponse) => {
       this.setState(state => ({
         cards: state.cards.filter((c) => c._id !== card._id),
       }));
@@ -194,7 +199,8 @@ class App extends React.Component {
   }
 
   handleUpdateUser = (data) => {
-    api.editProfile(data).then((userData) => {
+    api.editProfile(data).then((userDataResponse) => {
+      const userData = userDataResponse.data;
       this.setState({
         currentUser: {
           userName: userData.name,
@@ -211,7 +217,8 @@ class App extends React.Component {
   }
 
   handleUpdateAvatar = (data) => {
-    api.editAvatar(data).then((userData) => {
+    api.editAvatar(data).then((userDataResponse) => {
+      const userData = userDataResponse.data;
       this.setState({
         currentUser: {
           userName: userData.name,
@@ -228,7 +235,8 @@ class App extends React.Component {
   }
 
   handleAddPlace = (data) => {
-    api.addCard(data).then((cardData) => {
+    api.addCard(data).then((cardDataResponse) => {
+      const cardData = cardDataResponse.data;
       this.setState({
         cards: [cardData, ...this.state.cards]
       });
@@ -241,7 +249,7 @@ class App extends React.Component {
 
   handleRegisterUser = (data) => {
     api.registerUser(data)
-    .then(userInfo => {
+    .then(userInfoResponse => {
       this.setState({
         isInfoTooltipOpen: true,
         isInfoTooltipSuccess: true,
@@ -261,8 +269,9 @@ class App extends React.Component {
   // АВТОРИЗАЦИЯ ИСПОЛЬЗУЯ ДАННЫЕ
   handleLoginUser = (data) => {
     api.loginUser(data)
-    .then(loginInfo => {
+    .then(loginInfoResponse => {
       // СОХРАНЯЕМ ТОКЕН И ЗАПРАШИВАЕМ ДАННЫЕ С СЕРВЕРА ЧЕРЕЗ startApp()
+      const loginInfo = loginInfoResponse.data;
       if(loginInfo.token){
         const jwt = loginInfo.token;
         localStorage.setItem("jwt", jwt);
