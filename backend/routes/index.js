@@ -17,6 +17,13 @@ router.use(requestLogger);
 // cors
 router.use(cors);
 
+// тестовый роут для проверки автоматического перезапуска сервера
+router.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 // роуты, не требующие авторизации
 router.use('/signin', require('./signin'));
 router.use('/signup', require('./signup'));

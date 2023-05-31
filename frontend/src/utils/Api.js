@@ -135,7 +135,7 @@ const jwt = localStorage.getItem("jwt");
 if(jwt) defaultHeaders["Authorization"] = `Bearer ${jwt}`;
 
 export const api = new Api({
-  baseUrl: 'http://oker97.nomoredomains.rocks',
-  authUrl: 'http://oker97.nomoredomains.rocks',
+  baseUrl: 'https://api.oker97.nomoredomains.rocks',
+  authUrl: 'https://api.oker97.nomoredomains.rocks',
   headers: defaultHeaders
 });

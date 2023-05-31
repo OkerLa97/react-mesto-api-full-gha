@@ -75,7 +75,6 @@ class App extends React.Component {
     .then(([userDataResponse, cardsDataResponse]) => {
       const userData = userDataResponse.data;
       const cardsData = cardsDataResponse.data;
-      console.log(cardsData);
       this.setState({
         currentUser: {
           userName: userData.name,

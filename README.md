@@ -5,12 +5,12 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-Адрес репозитория: https://github.com/...
+Адрес репозитория: https://github.com/OkerLa97/react-mesto-api-full-gha
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 158.160.70.62
 
-Frontend https://...
+Frontend https://oker97.nomoredomains.rocks
 
-Backend https://...
+Backend https://api.oker97.nomoredomains.rocks
