@@ -269,9 +269,8 @@ class App extends React.Component {
   // АВТОРИЗАЦИЯ ИСПОЛЬЗУЯ ДАННЫЕ
   handleLoginUser = (data) => {
     api.loginUser(data)
-    .then(loginInfoResponse => {
+    .then(loginInfo => {
       // СОХРАНЯЕМ ТОКЕН И ЗАПРАШИВАЕМ ДАННЫЕ С СЕРВЕРА ЧЕРЕЗ startApp()
-      const loginInfo = loginInfoResponse.data;
       if(loginInfo.token){
         const jwt = loginInfo.token;
         localStorage.setItem("jwt", jwt);
