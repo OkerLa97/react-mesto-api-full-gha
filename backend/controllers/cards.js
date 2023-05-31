@@ -14,8 +14,7 @@ module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user._id })
     .then((card) => {
-      // Используем метод .populate() для загрузки данных по полям "owner" и "likes"
-      return card.populate(['owner', 'likes']).execPopulate();
+      return Card.findById(card._id).populate('owner').populate('likes').execPopulate();
     })
     .then((populatedCard) => {
       res.status(201).send({ data: populatedCard });
@@ -30,6 +29,7 @@ module.exports.createCard = (req, res, next) => {
       next(err);
     });
 };
+
 
 module.exports.deleteCard = (req, res, next) => {
   const userId = req.user._id; // получаем id пользователя из токена авторизации
