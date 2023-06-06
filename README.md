@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.70.62
+IP 158.160.70.62
 
 Frontend https://oker97.nomoredomains.rocks
 

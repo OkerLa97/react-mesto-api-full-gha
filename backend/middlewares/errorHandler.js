@@ -6,7 +6,7 @@ module.exports = (err, req, res, next) => {
   res.status(statusCode).send({
     // проверяем статус и выставляем сообщение в зависимости от него
     message: statusCode === http2.constants.HTTP_STATUS_INTERNAL_SERVER_ERROR
-      ? 'На сервере произошла ошибка'
+      ? message //'На сервере произошла ошибка'
       : message,
   });
 
