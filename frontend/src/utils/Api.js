@@ -114,6 +114,12 @@ class Api {
   }
 
   _request(url, options) {
+
+    // Проверяем, есть ли у запроса заголовок авторизации, и если есть — добавляем в него токен если имеется
+    if(options.headers && !options.headers.Authorization && localStorage.getItem("jwt")){
+      options.headers.Authorization = `Bearer ${localStorage.getItem("jwt")}`;
+    }
+
     return fetch(url, options)
     .then(this._checkResponse);
   }
@@ -127,15 +133,10 @@ class Api {
   }
 }
 
-const defaultHeaders = {
-  'Content-Type': 'application/json'
-};
-
-const jwt = localStorage.getItem("jwt");
-if(jwt) defaultHeaders["Authorization"] = `Bearer ${jwt}`;
-
 export const api = new Api({
   baseUrl: 'https://api.oker97.nomoredomains.rocks',
   authUrl: 'https://api.oker97.nomoredomains.rocks',
-  headers: defaultHeaders
+  headers: {
+    'Content-Type': 'application/json'
+  },
 });
