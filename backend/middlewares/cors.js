@@ -1,5 +1,4 @@
 module.exports = (req, res, next) => {
-  const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
   const { method } = req; // Записываем в переменную method соответствующий заголовок
 
   res.header('Access-Control-Allow-Origin', '*'); // Устанавливаем заголовок, который позволяет запросы с любого домена
@@ -14,4 +13,6 @@ module.exports = (req, res, next) => {
   }
 
   next();
+
+  return null;
 };
