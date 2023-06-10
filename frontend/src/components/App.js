@@ -233,6 +233,7 @@ class App extends React.Component {
           userName: userData.name,
           userDescription: userData.about,
           userAvatar: userData.avatar,
+          email: userData.email,
           _id: userData._id,
         }
       });
