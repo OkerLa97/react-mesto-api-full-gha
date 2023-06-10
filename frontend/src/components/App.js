@@ -29,6 +29,7 @@ class App extends React.Component {
       isImagePopupOpen: false,
       isInfoTooltipOpen: false,
       isInfoTooltipSuccess: false,
+      isRegistrationSuccess: false,
       InfoTooltipText: '',
       selectedCard: {name: '', link: ''},
       currentUser: {
@@ -67,6 +68,12 @@ class App extends React.Component {
     // ЗАПРАШИВАЕМ ДАННЫЕ ЕСЛИ УЖЕ АВТОРИЗОВАН
     if(this.state.isLoggedIn){
       this.startApp();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.isRegistrationSuccess !== this.state.isRegistrationSuccess && this.state.isRegistrationSuccess) {
+      this.setState({ isRegistrationSuccess: false });
     }
   }
 
@@ -119,7 +126,8 @@ class App extends React.Component {
               />
 
                 <Route path="/sign-in" element={ this.state.isLoggedIn ? <Navigate to="/"/> : <Login onLogin={this.handleLoginUser}/>} />
-                <Route path="/sign-up" element={<Register onRegister={this.handleRegisterUser}/>}/>
+                <Route path="/sign-up" element={ this.state.isLoggedIn || this.state.isRegistrationSuccess ? <Navigate to="/" /> : <Register onRegister={this.handleRegisterUser} />} />
+
               </Routes>
             </BrowserRouter>
 
@@ -253,6 +261,7 @@ class App extends React.Component {
         isInfoTooltipOpen: true,
         isInfoTooltipSuccess: true,
         InfoTooltipText: "Вы успешно зарегистрировались!",
+        isRegistrationSuccess: true,
       })
     })
     .catch(err => {
@@ -261,6 +270,7 @@ class App extends React.Component {
         isInfoTooltipOpen: true,
         isInfoTooltipSuccess: false,
         InfoTooltipText: "Что-то пошло не так! Попробуйте ещё раз.",
+        isRegistrationSuccess: false,
       })
     })
   }
