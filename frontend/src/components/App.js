@@ -208,11 +208,13 @@ class App extends React.Component {
   handleUpdateUser = (data) => {
     api.editProfile(data).then((userDataResponse) => {
       const userData = userDataResponse.data;
+      console.log(userData);
       this.setState({
         currentUser: {
           userName: userData.name,
           userDescription: userData.about,
           userAvatar: userData.avatar,
+          email: userData.email,
           _id: userData._id,
         }
       });
